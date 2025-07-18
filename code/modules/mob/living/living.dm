@@ -953,6 +953,10 @@
 		//deaf_loop.start() // Ear Ringing/Deafness - Not sure if we need this, but, safety. NYI. Used downstream.
 
 /mob/living/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = 5, distance = 1, message = TRUE, toxic = VOMIT_TOXIC, purge = FALSE)
+	if(H && iscarbon(H))
+		var/mob/living/carbon/C = H
+		if(CE_ANTACID in C.chem_effects) // Allow 'no puke' drugs to prevent vomiting and nausea
+			return TRUE
 	if(!lastpuke)
 		lastpuke = TRUE
 		to_chat(src, span_warning("You feel nauseous..."))
